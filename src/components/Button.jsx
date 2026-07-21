@@ -1,11 +1,13 @@
 import React from "react";
 
-const Button = ({ title }) => {
+const Button = ({ title, className }) => {
   return (
-    <button className="bg-[#5F6FFF] cursor-pointer  text-white px-8 py-3 rounded-full font-light hidden md:block">
+    <button className={`${className} cursor-pointer px-8 py-3 font-light`}>
       {title}
     </button>
   );
 };
 
 export default Button;
+
+// #5F6FFF text-white

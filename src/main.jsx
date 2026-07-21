@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import Doctors from "./pages/Doctors.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import FormContextProvider from "./context/Form/FormContextProvider.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
   },
 ]);
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router}>
-    <App />
-  </RouterProvider>,
+  <FormContextProvider>
+    <RouterProvider router={router} />
+  </FormContextProvider>,
 );
