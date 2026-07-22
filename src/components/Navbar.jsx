@@ -40,6 +40,11 @@ const Navbar = () => {
     navigate(path);
   };
 
+  const handleLogin = () => {
+    navigate("/login");
+    console.log("Clicked");
+  };
+
   return (
     <>
       <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-[#ADADAD]">
@@ -72,7 +77,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="hidden md:block">
+        <div className="hidden md:block" onClick={handleLogin}>
           <Button
             title="Create Account"
             className="text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
@@ -144,12 +149,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          <Button
-            title={"Create Account"}
-            className={
-              "text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
-            }
-          />
+          <div onClick={handleLogin}>
+            <Button
+              title={"Create Account"}
+              className={
+                "text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
+              }
+            />
+          </div>
         </div>
       </div>
     </>

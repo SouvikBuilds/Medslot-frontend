@@ -10,6 +10,7 @@ import Doctors from "./pages/Doctors.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FormContextProvider from "./context/Form/FormContextProvider.jsx";
+import Login from "./pages/Login.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/doctors",
         element: <Doctors />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

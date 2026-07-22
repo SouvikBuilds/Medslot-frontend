@@ -9,13 +9,25 @@ const ContactForm = ({}) => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
+  const [disabled, setDisabled] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      console.table(name, email, subject, message);
-      handleOpen();
+      if (
+        name.trim() !== "" &&
+        email.trim() !== "" &&
+        subject.trim() !== "" &&
+        message.trim() !== ""
+      ) {
+        setDisabled(true);
+        console.table(name, email, subject, message);
+        handleOpen();
+      }
     } catch (error) {
       console.log("Error");
+    } finally {
+      setDisabled(false);
     }
   };
   return (
@@ -111,9 +123,14 @@ const ContactForm = ({}) => {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-[#5F6FFF] text-white py-3 rounded-lg font-medium hover:bg-[#4f5ee8] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 cursor-pointer"
+            disabled={disabled}
+            className={`w-full flex items-center justify-center gap-2 bg-[#5F6FFF] text-white py-3 rounded-lg font-medium transition-all duration-300 ${
+              disabled
+                ? "opacity-60 cursor-not-allowed"
+                : "cursor-pointer hover:bg-[#4f5ee8] hover:scale-[1.01] active:scale-[0.99]"
+            }`}
           >
-            Send Message
+            {disabled ? "Sending..." : "Send Message"}
             <Send className="w-4 h-4" />
           </button>
         </form>
