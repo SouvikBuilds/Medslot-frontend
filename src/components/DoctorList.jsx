@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 const doctors = [
   {
@@ -82,9 +82,26 @@ const doctors = [
       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc10.png",
   },
 ];
+import AuthContext from "../context/Authentication/authContext";
 
 const DoctorList = () => {
+  const {
+    user,
+    authenticated,
+    loading,
+    setUser,
+    setAuthenticated,
+    setLoading,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleClickOnDoctor = () => {
+    if (user) {
+      navigate("/my-appointments");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className="flex flex-col items-center gap-4 my-16 text-[#262626] md:mx-10">
       <h1 className="text-3xl font-medium">Top Doctors to Book</h1>
@@ -100,6 +117,7 @@ const DoctorList = () => {
             <div
               key={doctor.id}
               className="border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
+              onClick={handleClickOnDoctor}
             >
               <img className="bg-[#EAEFFF]" src={doctor.image} alt="" />
 

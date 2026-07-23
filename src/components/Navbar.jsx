@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { assets } from "../assets/assets_frontend/assets.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "./Button.jsx";
-import { Menu, X } from "lucide-react";
+import {
+  Menu,
+  X,
+  User2,
+  CalendarDays,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
+import AuthContext from "../context/Authentication/authContext.js";
+import { logOutUser } from "../api/api.js";
 
 const navLinks = [
   {
@@ -29,25 +38,54 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const navigate = useNavigate();
+
+  const {
+    user,
+    authenticated,
+    loading,
+    setUser,
+    setAuthenticated,
+    setLoading,
+  } = useContext(AuthContext);
 
   const handleOpenMenu = () => {
     setOpen((prev) => !prev);
+    setProfileOpen(false);
   };
 
   const handleNavigate = (path) => {
     setOpen(false);
+    setProfileOpen(false);
     navigate(path);
   };
 
   const handleLogin = () => {
     navigate("/login");
-    console.log("Clicked");
+  };
+
+  const handleProfileOpen = () => {
+    setProfileOpen((prev) => !prev);
+  };
+
+  const handleLogOut = async () => {
+    try {
+      setLoading(true);
+      const response = await logOutUser();
+      setUser(null);
+      setAuthenticated(false);
+      navigate("/login");
+    } catch (error) {
+      console.log("Error while logging out user", error);
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-[#ADADAD]">
+      <div className="relative flex items-center justify-between text-sm py-4 mb-5 border-b border-b-[#ADADAD]">
         <img
           src={assets.logo}
           alt="MediSlot Logo"
@@ -77,20 +115,151 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="hidden md:block" onClick={handleLogin}>
-          <Button
-            title="Create Account"
-            className="text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
-          />
-        </div>
+        {user ? (
+          <div className="relative hidden md:block">
+            <div
+              onClick={handleProfileOpen}
+              className="flex items-center gap-3 cursor-pointer select-none"
+            >
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                <User2 className="w-6 h-6 text-gray-600" />
+              </div>
 
-        <button
-          onClick={handleOpenMenu}
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300"
-          aria-label="Open menu"
-        >
-          <Menu className="w-6 h-6 text-gray-700" />
-        </button>
+              <div>
+                <p className="font-medium text-gray-700">
+                  {user.name || "User"}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {user.email || "user@example.com"}
+                </p>
+              </div>
+
+              <ChevronDown
+                className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${
+                  profileOpen ? "rotate-180" : ""
+                }`}
+              />
+            </div>
+
+            <div
+              className={`absolute right-0 top-14 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden transition-all duration-200 origin-top-right ${
+                profileOpen
+                  ? "opacity-100 scale-100 visible"
+                  : "opacity-0 scale-95 invisible pointer-events-none"
+              }`}
+            >
+              <div className="px-4 py-3 border-b border-gray-100">
+                <p className="font-medium text-gray-700 truncate">
+                  {user.name || "User"}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {user.email || "user@example.com"}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleNavigate("/my-profile")}
+                className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+              >
+                <User2 className="w-5 h-5" />
+                <span>My Profile</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleNavigate("/my-appointments")}
+                className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+              >
+                <CalendarDays className="w-5 h-5" />
+                <span>My Appointments</span>
+              </button>
+
+              <button
+                type="button"
+                className="w-full flex items-center gap-3 px-4 py-3 text-red-500 border-t border-gray-100 hover:bg-red-50 transition-all cursor-pointer"
+                onClick={handleLogOut}
+              >
+                <LogOut className="w-5 h-5" />
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="hidden md:block" onClick={handleLogin}>
+            <Button
+              title="Create Account"
+              className="text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
+            />
+          </div>
+        )}
+
+        <div className="md:hidden flex items-center gap-2">
+          {user && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={handleProfileOpen}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300 cursor-pointer"
+              >
+                <User2 className="w-6 h-6 text-gray-600" />
+              </button>
+
+              <div
+                className={`absolute right-0 top-12 w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden transition-all duration-200 origin-top-right ${
+                  profileOpen
+                    ? "opacity-100 scale-100 visible"
+                    : "opacity-0 scale-95 invisible pointer-events-none"
+                }`}
+              >
+                <div className="px-4 py-3 border-b border-gray-100">
+                  <p className="font-medium text-gray-700 truncate">
+                    {user.name || "User"}
+                  </p>
+                  <p className="text-xs text-gray-500 truncate">
+                    {user.email || "user@example.com"}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleNavigate("/my-profile")}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+                >
+                  <User2 className="w-5 h-5" />
+                  <span>My Profile</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleNavigate("/my-appointments")}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+                >
+                  <CalendarDays className="w-5 h-5" />
+                  <span>My Appointments</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-3 px-4 py-3 text-red-500 border-t border-gray-100 hover:bg-red-50 transition-all cursor-pointer"
+                  onClick={handleLogOut}
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={handleOpenMenu}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-300 cursor-pointer"
+            aria-label="Open menu"
+          >
+            <Menu className="w-6 h-6 text-gray-700" />
+          </button>
+        </div>
       </div>
 
       <div
@@ -116,8 +285,9 @@ const Navbar = () => {
           />
 
           <button
+            type="button"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
             aria-label="Close menu"
           >
             <X className="w-5 h-5 text-gray-700" />
@@ -147,15 +317,6 @@ const Navbar = () => {
                 {link.title}
               </NavLink>
             ))}
-          </div>
-
-          <div onClick={handleLogin}>
-            <Button
-              title={"Create Account"}
-              className={
-                "text-white bg-[#5F6FFF] rounded-full active:bg-blue-800 transition-all duration-300 ease-in-out"
-              }
-            />
           </div>
         </div>
       </div>
