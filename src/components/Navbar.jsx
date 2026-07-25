@@ -99,6 +99,7 @@ const Navbar = () => {
               <NavLink
                 to={link.link}
                 end={link.link === "/"}
+                target={index === 4 ? "_blank" : "_self"}
                 className={({ isActive }) =>
                   index === 4
                     ? "border-2 border-gray-200 px-7 py-1 rounded-full text-base font-medium hover:bg-gray-50 transition-all duration-300"
@@ -303,6 +304,7 @@ const Navbar = () => {
                 key={link.link}
                 to={link.link}
                 end={link.link === "/"}
+                target={index === 4 ? "_blank" : "_self"}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   index === 4

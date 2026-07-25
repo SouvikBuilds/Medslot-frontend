@@ -16,8 +16,17 @@ import Appointments from "./pages/Appointments.jsx";
 import MagicLogin from "./pages/MagicLogin.jsx";
 import PublicRoutes from "./RouteGuards/PublicRoutes.jsx";
 import PrivateRoutes from "./RouteGuards/PrivateRoutes.jsx";
-
+import WithOutNavbarFooter from "./components/WithOutNavbarFooter.jsx";
 const router = createBrowserRouter([
+  {
+    element: <WithOutNavbarFooter />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminPanel />,
+      },
+    ],
+  },
   {
     path: "/",
     element: <App />,
@@ -29,10 +38,6 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
-      },
-      {
-        path: "/admin",
-        element: <AdminPanel />,
       },
       {
         path: "/contact",

@@ -3,11 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "./Button.jsx";
 import { useContext } from "react";
 import AuthContext from "../context/Authentication/authContext.js";
-import {
-  registerUser,
-  loginUser,
-  requestMagicLink,
-} from "../api/api.js";
+import { registerUser, loginUser, requestMagicLink } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -47,6 +43,7 @@ const LoginForm = () => {
         setAuthenticated(true);
         reset();
         navigate("/");
+        location.reload();
       } else {
         const response = await registerUser(data);
         setUser(response.data);

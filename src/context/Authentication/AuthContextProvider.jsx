@@ -14,7 +14,7 @@ const AuthContextProvider = ({ children }) => {
       try {
         await getCurrentUser().then((response) => {
           setUser(response.data.data);
-          console.log(user);
+          // console.log(user);
           setAuthenticated(true);
         });
       } catch (error) {
