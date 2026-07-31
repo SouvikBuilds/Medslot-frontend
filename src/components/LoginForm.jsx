@@ -69,6 +69,7 @@ const LoginForm = () => {
 
       console.log(response);
       resetMagic();
+      location.reload();
     } catch (error) {
       console.log("Error while sending magic link", error);
       setError(error);

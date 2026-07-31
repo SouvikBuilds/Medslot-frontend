@@ -42,12 +42,11 @@ const ContactForm = ({}) => {
 
         <div className="mb-7">
           <h1 className="text-[#5F6FFF] text-2xl sm:text-3xl font-semibold">
-            Send us a message
+            Join as a doctor
           </h1>
 
           <p className="text-gray-500 text-sm mt-2">
-            Have a question or need assistance? Fill out the form and we'll get
-            back to you as soon as possible.
+            Want to join as a doctor, fill this form
           </p>
         </div>
 
@@ -96,7 +95,7 @@ const ContactForm = ({}) => {
             <input
               type="text"
               id="subject"
-              placeholder="What is this about?"
+              placeholder="Subject"
               className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg outline-none focus:border-[#5F6FFF] focus:ring-2 focus:ring-[#5F6FFF]/20 transition-all placeholder:text-gray-400"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
@@ -108,13 +107,13 @@ const ContactForm = ({}) => {
               htmlFor="message"
               className="text-sm font-medium text-gray-700"
             >
-              Message
+              About Doctor
             </label>
 
             <textarea
               id="message"
               rows="4"
-              placeholder="Write your message here..."
+              placeholder="Write your degree, specialization..."
               className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg outline-none resize-none focus:border-[#5F6FFF] focus:ring-2 focus:ring-[#5F6FFF]/20 transition-all placeholder:text-gray-400"
               value={message}
               onChange={(e) => setMessage(e.target.value)}

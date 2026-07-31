@@ -105,7 +105,7 @@ const Navbar = () => {
                     ? "border-2 border-gray-200 px-7 py-1 rounded-full text-base font-medium hover:bg-gray-50 transition-all duration-300"
                     : `pb-1 border-b-2 transition-all duration-300 ${
                         isActive
-                          ? "border-b-primary"
+                          ? "border-b-[#5F6FFF]"
                           : "border-b-transparent hover:border-b-gray-500"
                       }`
                 }

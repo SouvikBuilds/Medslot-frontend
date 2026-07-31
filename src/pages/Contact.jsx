@@ -43,7 +43,7 @@ const Contact = () => {
 
           <div onClick={handleOpen}>
             <Button
-              title={"Send a message"}
+              title={"Explore Jobs"}
               className={
                 "bg-white active:bg-black border-2 border-gray-900 text-black active:text-white transition-all duration-300"
               }
