@@ -1,148 +1,37 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getAllDoctors } from "../api/api.js";
+import { LoaderCircle } from "lucide-react";
 
-const doctorCategories = [
-  "General Physician",
-  "Gynecologist",
-  "Dermatologist",
-  "Pediatricians",
-  "Neurologist",
-  "Gastroenterologist",
-];
-
-const doctors = [
-  {
-    id: 1,
-    name: "Dr. Richard James",
-    available: true,
-    category: "General Physician",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  },
-  {
-    id: 2,
-    name: "Dr. Emily Larson",
-    available: true,
-    category: "Gynecologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc2.png",
-  },
-  {
-    id: 3,
-    name: "Dr. Sarah Patel",
-    available: true,
-    category: "Dermatologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc3.png",
-  },
-  {
-    id: 4,
-    name: "Dr. Christopher Lee",
-    available: true,
-    category: "Pediatricians",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc4.png",
-  },
-  {
-    id: 5,
-    name: "Dr. Jennifer Garcia",
-    available: true,
-    category: "Neurologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc5.png",
-  },
-  {
-    id: 6,
-    name: "Dr. Andrew Williams",
-    available: true,
-    category: "Gastroenterologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc6.png",
-  },
-  {
-    id: 7,
-    name: "Dr. Christopher Davis",
-    available: true,
-    category: "General Physician",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc7.png",
-  },
-  {
-    id: 8,
-    name: "Dr. Timothy White",
-    available: true,
-    category: "Gynecologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc8.png",
-  },
-  {
-    id: 9,
-    name: "Dr. Ava Mitchell",
-    available: true,
-    category: "Dermatologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc9.png",
-  },
-  {
-    id: 10,
-    name: "Dr. Jeffrey King",
-    available: true,
-    category: "Pediatricians",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc10.png",
-  },
-  {
-    id: 11,
-    name: "Dr. Zoe Kelly",
-    available: true,
-    category: "Neurologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc11.png",
-  },
-  {
-    id: 12,
-    name: "Dr. Patrick Harris",
-    available: true,
-    category: "Gastroenterologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc12.png",
-  },
-  {
-    id: 13,
-    name: "Dr. Chloe Evans",
-    available: true,
-    category: "General Physician",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc13.png",
-  },
-  {
-    id: 14,
-    name: "Dr. Ryan Martinez",
-    available: true,
-    category: "Gynecologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc14.png",
-  },
-  {
-    id: 15,
-    name: "Dr. Amelia Hill",
-    available: true,
-    category: "Dermatologist",
-    image:
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc15.png",
-  },
+const specialities = [
+  "General Physician", "Gynecologist", "Dermatologist",
+  "Pediatricians", "Neurologist", "Gastroenterologist",
 ];
 
 const Doctors = () => {
+  const { speciality: paramSpeciality } = useParams();
+  const navigate = useNavigate();
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(paramSpeciality || "");
   const [open, setOpen] = useState(false);
-  const handleOpenFilters = () => {
-    setOpen((prev) => !prev);
-  };
 
-  const [selectedCategory, setSelectedCategory] = useState("");
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await getAllDoctors();
+        setDoctors(res.data.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
 
-  const filteredDoctors = selectedCategory
-    ? doctors.filter((doc) => doc.category === selectedCategory)
+  const filtered = selectedCategory
+    ? doctors.filter((d) => d.speciality === selectedCategory)
     : doctors;
 
   return (
@@ -151,22 +40,19 @@ const Doctors = () => {
 
       <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
         <button
-          onClick={handleOpenFilters}
-          className={`${open ? "bg-blue-500 text-white" : ""} py-1 px-3 border cursor-pointer rounded text-sm transition-all sm:hidden`}
+          onClick={() => setOpen((p) => !p)}
+          className={`${open ? "bg-[#5F6FFF] text-white" : ""} py-1 px-3 border cursor-pointer rounded text-sm transition-all sm:hidden`}
         >
           Filters
         </button>
 
         {open && (
           <div className="flex flex-col md:hidden gap-4 text-sm">
-            {doctorCategories.map((cat, index) => (
+            {specialities.map((cat) => (
               <p
-                key={index}
+                key={cat}
                 className="w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer"
-                onClick={() => {
-                  setSelectedCategory(cat);
-                  setOpen(false);
-                }}
+                onClick={() => { setSelectedCategory(cat); setOpen(false); }}
               >
                 {cat}
               </p>
@@ -175,47 +61,45 @@ const Doctors = () => {
         )}
 
         <div className="flex-col gap-4 text-sm text-gray-600 hidden sm:flex">
-          {doctorCategories.map((cat, index) => (
+          {specialities.map((cat) => (
             <p
-              key={index}
-              className={`${selectedCategory === cat ? "bg-blue-500 text-white" : ""} w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer`}
-              onClick={() => {
-                setSelectedCategory(selectedCategory === cat ? "" : cat);
-
-                // console.log(`${index + 1}th box clicked`);
-              }}
+              key={cat}
+              className={`${selectedCategory === cat ? "bg-[#5F6FFF] text-white" : ""} w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer`}
+              onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat)}
             >
               {cat}
             </p>
           ))}
         </div>
 
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
-          {filteredDoctors.map((doc) => (
-            <div
-              key={doc.id}
-              className="border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2.5 transition-all duration-500"
-            >
-              <img
-                className="bg-[#EAEFFF]"
-                src={doc.image}
-                alt="doctor image"
-              />
-              <div className="p-4">
-                <div
-                  className={`${doc.available ? "flex items-center gap-2 text-sm text-center text-green-500" : "flex items-center gap-2 text-sm text-center text-red-500"}`}
-                >
-                  <p
-                    className={`${doc.available ? "w-2 h-2 rounded-full bg-green-500" : "w-2 h-2 rounded-full bg-red-500"}`}
-                  ></p>
-                  <p>{doc.available ? "Available" : "Not Available"}</p>
+        {loading ? (
+          <div className="flex-1 flex items-center justify-center h-40">
+            <LoaderCircle className="animate-spin w-8 h-8 text-[#5F6FFF]" />
+          </div>
+        ) : (
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
+            {filtered.map((doc) => (
+              <div
+                key={doc._id}
+                onClick={() => navigate(`/appointment/${doc._id}`)}
+                className="border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2.5 transition-all duration-500"
+              >
+                <img className="bg-[#EAEFFF] w-full" src={doc.image || `https://ui-avatars.com/api/?name=${doc.name}&background=EEF2FF&color=5F6FFF&size=200`} alt={doc.name} />
+                <div className="p-4">
+                  <div className={`flex items-center gap-2 text-sm ${doc.available ? "text-green-500" : "text-red-500"}`}>
+                    <p className={`w-2 h-2 rounded-full ${doc.available ? "bg-green-500" : "bg-red-500"}`}></p>
+                    <p>{doc.available ? "Available" : "Not Available"}</p>
+                  </div>
+                  <p className="text-[#262626] text-lg font-medium">{doc.name}</p>
+                  <p className="text-[#5C5C5C] text-sm">{doc.speciality}</p>
                 </div>
-                <p className="text-[#262626] text-lg font-medium">{doc.name}</p>
-                <p className="text-[#5C5C5C] text-sm">{doc.category}</p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+            {filtered.length === 0 && !loading && (
+              <p className="col-span-full text-center text-gray-400 py-10">No doctors found</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

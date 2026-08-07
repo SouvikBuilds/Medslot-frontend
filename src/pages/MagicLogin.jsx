@@ -27,6 +27,7 @@ const MagicLogin = () => {
         setUser(response.data);
         setAuthenticated(true);
         navigate("/");
+        location.reload();
       } catch (error) {
         console.log("Error while logging in through magic link", error);
       } finally {
