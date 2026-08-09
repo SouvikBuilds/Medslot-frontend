@@ -17,7 +17,7 @@ const Specilaity = () => {
       <div className="flex sm:justify-center gap-4 pt-5 w-full overflow-scroll ">
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/General physician"
+          href="/doctors"
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -29,7 +29,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/Gynecologist"
+          href="/doctors"
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -41,7 +41,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/Dermatologist"
+          href="/doctors"
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -53,7 +53,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/Pediatricians"
+          href="/doctors"
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -65,7 +65,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/Neurologist"
+          href="/doctors"
         >
           <img className="w-16 sm:w-24 mb-2 " src={assets.Neurologist} alt="" />
           <p>Neurologist</p>
@@ -73,7 +73,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors/Gastroenterologist"
+          href="/doctors"
         >
           <img
             className="w-16 sm:w-24 mb-2 "
