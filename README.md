@@ -1,103 +1,51 @@
-# 🩺 MedSlot
+# 🩺 MedSlot — Frontend
 
-> A full-stack doctor appointment booking platform designed to simplify the process of discovering doctors, managing appointments, and handling healthcare-related operations.
+MedSlot is a modern doctor appointment booking platform designed to make healthcare scheduling simple and convenient.
 
-MedSlot is a modern healthcare appointment management platform built with the **MERN stack**. It provides separate experiences for patients, doctors, and administrators, with secure authentication and appointment management.
-
----
+This repository contains the **frontend application** of MedSlot, built with React and designed to communicate with the MedSlot backend through REST APIs.
 
 ## ✨ Features
 
-### 👤 Authentication & Authorization
-- User registration and login
-- JWT-based authentication
-- Secure cookie-based authentication
-- Magic Link / passwordless login
-- Protected routes
-- Role-based access control
+- 🔐 User authentication
+- 🔗 Passwordless Magic Link login
+- 🛡️ Protected routes
+- 👤 User profile management
+- 🧑‍⚕️ Doctor listing and profiles
+- 📅 Appointment booking and management
+- 🛠️ Admin dashboard
+- 📱 Responsive user interface
+- ⚡ Fast development with Vite
+- 🎨 Modern UI with Tailwind CSS
+- 🔄 REST API integration
+- ☁️ Production deployment with Vercel
 
-### 🧑‍⚕️ Doctor Management
-- Browse available doctors
-- View doctor profiles
-- Doctor information and profile images
-- Doctor application/employment workflow
-- Admin-controlled doctor management
-
-### 📅 Appointment Management
-- Book doctor appointments
-- View appointments
-- Manage appointment status
-- Patient-doctor appointment workflow
-
-### 🛡️ Admin Dashboard
-- Admin authentication
-- Manage doctors
-- Manage users
-- Monitor appointments
-- Handle doctor applications
-
-### ☁️ Cloud Integration
-- Cloudinary integration for image uploads
-- Secure backend API
-- Environment-based configuration
-
----
-
-## 🏗️ Tech Stack
-
-### Frontend
+## 🛠️ Tech Stack
 
 - React.js
 - React Router
 - Tailwind CSS
 - Vite
 - Axios
-
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- bcrypt
-- Cookie-based authentication
-
-### Services & Tools
-
-- Cloudinary
-- Vercel
-- Render
-- Git & GitHub
-
----
+- JavaScript (ES6+)
 
 ## 📂 Project Structure
 
 ```text
-MedSlot/
+client/
 │
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── context/
-│   │   ├── api/
-│   │   ├── assets/
-│   │   └── App.jsx
-│   │
-│   ├── package.json
-│   └── vercel.json
+├── public/
 │
-├── server/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── utils/
-│   ├── config/
-│   ├── app.js
-│   └── server.js
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│   ├── api/
+│   ├── App.jsx
+│   └── main.jsx
 │
-└── README.md
+├── .env
+├── index.html
+├── package.json
+├── vite.config.js
+└── vercel.json
