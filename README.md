@@ -1,17 +1,103 @@
-# React + Vite
+# 🩺 MedSlot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A full-stack doctor appointment booking platform designed to simplify the process of discovering doctors, managing appointments, and handling healthcare-related operations.
 
-Currently, two official plugins are available:
+MedSlot is a modern healthcare appointment management platform built with the **MERN stack**. It provides separate experiences for patients, doctors, and administrators, with secure authentication and appointment management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 👤 Authentication & Authorization
+- User registration and login
+- JWT-based authentication
+- Secure cookie-based authentication
+- Magic Link / passwordless login
+- Protected routes
+- Role-based access control
 
-## Expanding the ESLint configuration
+### 🧑‍⚕️ Doctor Management
+- Browse available doctors
+- View doctor profiles
+- Doctor information and profile images
+- Doctor application/employment workflow
+- Admin-controlled doctor management
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Medslot-frontend
+### 📅 Appointment Management
+- Book doctor appointments
+- View appointments
+- Manage appointment status
+- Patient-doctor appointment workflow
+
+### 🛡️ Admin Dashboard
+- Admin authentication
+- Manage doctors
+- Manage users
+- Monitor appointments
+- Handle doctor applications
+
+### ☁️ Cloud Integration
+- Cloudinary integration for image uploads
+- Secure backend API
+- Environment-based configuration
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+
+- React.js
+- React Router
+- Tailwind CSS
+- Vite
+- Axios
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcrypt
+- Cookie-based authentication
+
+### Services & Tools
+
+- Cloudinary
+- Vercel
+- Render
+- Git & GitHub
+
+---
+
+## 📂 Project Structure
+
+```text
+MedSlot/
+│
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   └── App.jsx
+│   │
+│   ├── package.json
+│   └── vercel.json
+│
+├── server/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── utils/
+│   ├── config/
+│   ├── app.js
+│   └── server.js
+│
+└── README.md
