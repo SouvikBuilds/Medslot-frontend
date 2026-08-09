@@ -1,7 +1,12 @@
 import React from "react";
 import { assets } from "../assets/assets_frontend/assets";
-
+import { useNavigate } from "react-router-dom";
 const Specilaity = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/doctors");
+  };
   return (
     <div
       id="speciality"
@@ -17,7 +22,7 @@ const Specilaity = () => {
       <div className="flex sm:justify-center gap-4 pt-5 w-full overflow-scroll ">
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -29,7 +34,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -41,7 +46,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -53,7 +58,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img
             className="w-16 sm:w-24 mb-2 "
@@ -65,7 +70,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img className="w-16 sm:w-24 mb-2 " src={assets.Neurologist} alt="" />
           <p>Neurologist</p>
@@ -73,7 +78,7 @@ const Specilaity = () => {
 
         <a
           className="flex flex-col items-center text-xs cursor-pointer flex-shrink-0 hover:translate-y-[-10px] transition-all duration-500"
-          href="/doctors"
+          onClick={handleClick}
         >
           <img
             className="w-16 sm:w-24 mb-2 "
