@@ -58,21 +58,18 @@ const LoginForm = () => {
     }
   };
 
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+
   const onMagicLinkSubmit = async (data) => {
     try {
       setLoading(true);
       setError(null);
-
-      const response = await requestMagicLink({
-        email: data.email,
-      });
-
-      console.log(response);
+      await requestMagicLink({ email: data.email });
       resetMagic();
-      location.reload();
+      setMagicLinkSent(true);
     } catch (error) {
       console.log("Error while sending magic link", error);
-      setError(error);
+      setError(error?.response?.data?.message || "Failed to send magic link");
     } finally {
       setLoading(false);
     }
@@ -172,15 +169,25 @@ const LoginForm = () => {
                 {magicErrors.email.message}
               </p>
             )}
+            {error && typeof error === "string" && (
+              <p className="text-red-600 text-xs w-full">{error}</p>
+            )}
 
             <div className="w-full">
-              <button
-                type="button"
-                onClick={handleMagicSubmit(onMagicLinkSubmit)}
-                className="bg-blue-600 cursor-pointer active:bg-blue-800 transition-all duration-300 ease-in-out text-white w-full py-2 my-2 rounded-md text-base"
-              >
-                Send Magic Link
-              </button>
+              {magicLinkSent ? (
+                <p className="text-green-600 text-sm text-center py-2">
+                  ✅ Magic link sent! Check your inbox.
+                </p>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleMagicSubmit(onMagicLinkSubmit)}
+                  disabled={isSubmitting || loading}
+                  className="bg-blue-600 cursor-pointer active:bg-blue-800 transition-all duration-300 ease-in-out text-white w-full py-2 my-2 rounded-md text-base disabled:opacity-60"
+                >
+                  {loading ? "Sending..." : "Send Magic Link"}
+                </button>
+              )}
             </div>
           </div>
 
