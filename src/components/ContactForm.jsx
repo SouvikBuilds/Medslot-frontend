@@ -21,11 +21,10 @@ const ContactForm = ({}) => {
         message.trim() !== ""
       ) {
         setDisabled(true);
-        console.table(name, email, subject, message);
         handleOpen();
       }
     } catch (error) {
-      console.log("Error");
+      // no-op
     } finally {
       setDisabled(false);
     }

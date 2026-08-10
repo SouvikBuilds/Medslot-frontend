@@ -78,7 +78,6 @@ const Navbar = () => {
       setAuthenticated(false);
       navigate("/login");
     } catch (error) {
-      console.log("Error while logging out user", error);
       setLoading(false);
     }
   };

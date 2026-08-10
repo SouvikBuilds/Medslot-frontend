@@ -36,7 +36,7 @@ const ProfileComponent = () => {
       setUser(res.data);
       setEdit(false);
     } catch (error) {
-      console.log("Error updating profile", error);
+      // profile update failed silently
     }
   };
 

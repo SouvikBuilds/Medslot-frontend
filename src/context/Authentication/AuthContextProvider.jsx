@@ -14,11 +14,9 @@ const AuthContextProvider = ({ children }) => {
       try {
         await getCurrentUser().then((response) => {
           setUser(response.data.data);
-          // console.log(user);
           setAuthenticated(true);
         });
       } catch (error) {
-        console.log("Error while fetching current user");
         setError(error);
         setUser(null);
         setAuthenticated(false);

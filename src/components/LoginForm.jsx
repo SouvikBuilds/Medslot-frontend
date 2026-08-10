@@ -51,7 +51,6 @@ const LoginForm = () => {
         setLogin(true);
       }
     } catch (error) {
-      console.log("Error while registering user", error);
       setError(error);
     } finally {
       setLoading(false);
@@ -68,7 +67,6 @@ const LoginForm = () => {
       resetMagic();
       setMagicLinkSent(true);
     } catch (error) {
-      console.log("Error while sending magic link", error);
       setError(error?.response?.data?.message || "Failed to send magic link");
     } finally {
       setLoading(false);
